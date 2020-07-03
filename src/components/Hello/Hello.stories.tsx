@@ -5,8 +5,10 @@ export default {
     title: 'Hello',
 };
 
-export const DefaultHello: React.ReactNode = () => <Hello name="Daniel" />;
+export const DefaultHello = (): React.ReactElement => (
+    <Hello name="Daniel" enthusiasmLevel={5} />
+);
 
 DefaultHello.story = {
-    name: 'Default Hello',
+    name: 'Set Name',
 };
