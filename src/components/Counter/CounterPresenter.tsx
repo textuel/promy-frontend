@@ -1,5 +1,5 @@
 import React from 'react';
-import { CounterProps } from './CounterPropsType';
+import { CounterProps } from '../../types/CounterPresenterPropsType';
 
 function CounterPresenter({
     count,

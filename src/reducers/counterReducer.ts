@@ -1,4 +1,4 @@
-import { CounterState, CounterAction } from '../types/counterActionProps';
+import { CounterState, CounterAction } from '../types/CounterActionType';
 import { INCREASE, DECREASE, INCREASE_BY } from '../actions/counter';
 import { createReducer } from 'typesafe-actions';
 
