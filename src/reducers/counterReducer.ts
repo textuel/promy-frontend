@@ -1,24 +1,20 @@
-import { CounterState, CounterAction } from '../types/counterActionProps.d.';
+import { CounterState, CounterAction } from '../types/counterActionProps';
 import { INCREASE, DECREASE, INCREASE_BY } from '../actions/counter';
+import { createReducer } from 'typesafe-actions';
 
 const initialState: CounterState = {
     count: 0,
 };
 
-function counterReducer(
-    state: CounterState = initialState,
-    action: CounterAction,
-): CounterState {
-    switch (action.type) {
-        case INCREASE:
-            return { count: state.count + 1 };
-        case DECREASE:
-            return { count: state.count - 1 };
-        case INCREASE_BY:
-            return { count: state.count + action.payload };
-        default:
-            return state;
-    }
-}
+const counterReducer = createReducer<CounterState, CounterAction>(
+    initialState,
+    {
+        [INCREASE]: (state) => ({ count: state.count + 1 }),
+        [DECREASE]: (state) => ({ count: state.count - 1 }),
+        [INCREASE_BY]: (state, action) => ({
+            count: state.count + action.payload,
+        }),
+    },
+);
 
 export default counterReducer;

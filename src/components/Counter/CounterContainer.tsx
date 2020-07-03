@@ -4,7 +4,7 @@ import { RootState } from '../../reducers';
 import { increase, decrease, increaseBy } from '../../actions/counter';
 import CounterPresenter from './CounterPresenter';
 
-function CounterContainer() {
+function CounterContainer(): ReturnType<typeof CounterPresenter> {
     const count = useSelector((state: RootState) => state.counter.count);
     const dispatch = useDispatch();
 

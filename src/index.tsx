@@ -1,3 +1,6 @@
+import 'core-js/es/map';
+import 'core-js/es/set';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import store from './store/index';
