@@ -1,6 +1,6 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "baseUrl": "src",
     "outDir": "build",
     "module": "esnext",
     "target": "es5",
@@ -37,7 +37,6 @@
   ],
   "exclude": [
     "node_modules",
-    "build",
-    "./tsconfig.paths.json"
+    "build"
   ]
 }
