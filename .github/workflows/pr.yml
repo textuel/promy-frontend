@@ -1,0 +1,56 @@
+name: PR Check
+
+on:
+    pull_request:
+        branches: [master]
+
+jobs:
+    wip:
+        runs-on: ubuntu-latest
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - uses: wip/action@v1
+
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Setup Node.js environment
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '14'
+
+            - uses: actions/cache@v2
+              id: yarn-cache
+              with:
+                  path: |
+                      node_modules
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+            - name: Install dependencies
+              if: steps.yarn-cache.outputs.cache-hit != 'true'
+              run: yarn install
+
+            - name: Build website
+              run: |
+                  yarn build
+
+            - name: Type-checking with TypeScript
+              run: |
+                  yarn check-types
+
+            - name: Archive build artifacts
+              run: |
+                  tar cvzf public.tgz public
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  name: public
+                  path: /public.tgz
