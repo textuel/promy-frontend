@@ -1,10 +1,5 @@
-const rewireModuleResolver = require('react-app-rewire-module-resolver');
+const { alias, configPaths } = require('react-app-rewire-alias');
 
-module.exports = function override(config, env) {
-    const moduleResolverOptions = {
-        root: ['./src'],
-    };
-
-    config = rewireModuleResolver(config, env, moduleResolverOptions);
-    return config;
+module.exports = function override(config) {
+    return alias(configPaths('./tsconfig.paths.json'))(config);
 };
